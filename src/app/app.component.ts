@@ -21,6 +21,7 @@ export class AppComponent implements OnInit{
 
   addTodo() {
     this.Save(this.newTodo);
+    this.newTodo.name = "";
     // this.newTodo = new Todo();
   }
 
@@ -29,7 +30,8 @@ export class AppComponent implements OnInit{
     this.Save(todo);
   }
 
-  private Save(todo: Todo){
+  Save(todo: Todo){
+    console.log(todo);
     this._todoService.Save(todo).subscribe(
       (success) => {
         console.log("success");
@@ -64,17 +66,22 @@ export class AppComponent implements OnInit{
 
   handleError() {
     console.log("EROU");
-
-    // this._modalService.showAlert(
-    //   'Erro ao carregar cursos. Tente novamente mais tarde.',
-    //   'danger'
-    // );
   }
 
-  // get todos() {
-  //   // return this._todoService.getAllTodos();
-  // }
-
-
-
 }
+
+
+
+
+
+
+
+
+      // this._modalService.showAlert(
+      //   'Erro ao carregar cursos. Tente novamente mais tarde.',
+      //   'danger'
+      // );
+
+    // get todos() {
+    //   // return this._todoService.getAllTodos();
+    // }

@@ -80,6 +80,69 @@ body {
 	text-rendering: optimizeLegibility;
 }
 
+.main {
+	position: relative;
+	z-index: 2;
+	border-top: 1px solid #e6e6e6;
+}
+
+.todo-list li .item {
+	word-break: break-all;
+	padding: 15px 60px 15px 15px;
+	margin-left: 45px;
+	display: block;
+	line-height: 1.2;
+	transition: color 0.4s;
+}
+
+.todo-list li.completed .item {
+	color: #d9d9d9;
+	text-decoration: line-through;
+}
+
+.new-todo[for='toggle-all'] {
+	display: none;
+}
+
+.item{
+	position: relative;
+	margin: 0;
+	width: 80%;
+	font-size: 24px;
+	font-family: inherit;
+	font-weight: inherit;
+	line-height: 1.4em;
+	border: 0;
+	color: inherit;
+	padding: 6px;
+	border: 1px solid #999;
+	box-shadow: inset 0 -1px 5px 0 rgba(0, 0, 0, 0.2);
+	box-sizing: border-box;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+ padding: 16px 16px 16px 60px;
+	border: none;
+	background: rgba(0, 0, 0, 0.003);
+	box-shadow: inset 0 -2px 1px rgba(0,0,0,0.03);
+}
+.todo-list li label {
+	word-break: break-all;
+	padding: 15px 60px 15px 15px;
+	margin-left: 45px;
+	display: block;
+	line-height: 1.2;
+	transition: color 0.4s;
+}
+
+.todo-list li.completed label {
+	color: #d9d9d9;
+	text-decoration: line-through;
+}
+
+label[for='toggle-all'] {
+	display: none;
+}
+
 .new-todo,
 .edit {
 	position: relative;
@@ -104,16 +167,6 @@ body {
 	border: none;
 	background: rgba(0, 0, 0, 0.003);
 	box-shadow: inset 0 -2px 1px rgba(0,0,0,0.03);
-}
-
-.main {
-	position: relative;
-	z-index: 2;
-	border-top: 1px solid #e6e6e6;
-}
-
-label[for='toggle-all'] {
-	display: none;
 }
 
 .toggle-all {
@@ -177,10 +230,10 @@ label[for='toggle-all'] {
 	position: absolute;
 	top: 0;
 	bottom: 0;
-	margin: auto 0;
 	border: none; /* Mobile Safari */
+	/* margin: auto 0;
 	-webkit-appearance: none;
-	appearance: none;
+	appearance: none; */
 }
 
 .todo-list li .toggle:after {
@@ -189,20 +242,6 @@ label[for='toggle-all'] {
 
 .todo-list li .toggle:checked:after {
 	content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#bddad5" stroke-width="3"/><path fill="#5dc2af" d="M72 25L42 71 27 56l-4 4 20 20 34-52z"/></svg>');
-}
-
-.todo-list li label {
-	word-break: break-all;
-	padding: 15px 60px 15px 15px;
-	margin-left: 45px;
-	display: block;
-	line-height: 1.2;
-	transition: color 0.4s;
-}
-
-.todo-list li.completed label {
-	color: #d9d9d9;
-	text-decoration: line-through;
 }
 
 .todo-list li .destroy {

@@ -21,11 +21,16 @@
               (click)="toggleTodoStatus(todo)"
               [checked]="todo.status"
             />
-            <label
+            <input class="item"
+             [(ngModel)]="todo.name"
+             (value)="todo.name"
+             (keyup.enter)="Save(todo)"
+            />
+            <!-- <label
               (click)="toggleTodoStatus(todo)"
             >
                {{ todo.name }}
-            </label>
+            </label> -->
             <button class="destroy" (click)="removeTodo(todo)"></button>
           </div>
         </li>
