@@ -1,32 +1,80 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { catchError, Observable, of } from 'rxjs';
+import { ApiService } from './api.service';
 import { Todo } from './todo';
-import { TodoDataService } from './todo-data.service';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   newTodo: Todo = new Todo();
+  todos$!: Observable<Todo[]>;
 
-  constructor(private todoDataService: TodoDataService) {
+
+  constructor(private _todoService: ApiService) {
+  }
+
+  ngOnInit() {
+    this.onRefresh();
   }
 
   addTodo() {
-    this.todoDataService.addTodo(this.newTodo);
-    this.newTodo = new Todo();
+    this.Save(this.newTodo);
+    // this.newTodo = new Todo();
   }
 
   toggleTodoStatus(todo: Todo){
-    this.todoDataService.toggleTodoStatus(todo);
+    todo.status = !todo.status;
+    this.Save(todo);
+  }
+
+  private Save(todo: Todo){
+    this._todoService.Save(todo).subscribe(
+      (success) => {
+        console.log("success");
+        this.onRefresh();
+      },
+      (error) =>
+        console.log("error"),
+        () => {}
+    );
   }
 
   removeTodo(todo: Todo){
-    this.todoDataService.deleteTodoById(todo.id);
+    console.log(todo);
+
+    this._todoService.deleteTodoById(todo.id).subscribe((data)=>{
+      console.log("success");
+      this.onRefresh();
+    });
+
   }
 
-  get todos() {
-    return this.todoDataService.getAllTodos();
+  onRefresh(){
+    this.todos$ = this._todoService.getAllTodos().pipe(
+      catchError((error) => {
+        // this.error$.next(true);
+        this.handleError();
+        return of();
+      })
+    );
+
   }
+
+  handleError() {
+    console.log("EROU");
+
+    // this._modalService.showAlert(
+    //   'Erro ao carregar cursos. Tente novamente mais tarde.',
+    //   'danger'
+    // );
+  }
+
+  // get todos() {
+  //   // return this._todoService.getAllTodos();
+  // }
+
+
+
 }

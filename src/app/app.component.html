@@ -9,26 +9,33 @@
       (keyup.enter)="addTodo()"
     />
   </header>
-  <section class="main" *ngIf="todos.length > 0">
-    <ul class="todo-list">
-      <li *ngFor="let todo of todos" [class.completed]="todo.status">
-        <div class="view">
-          <input
-            class="toggle"
-            type="checkbox"
-            (click)="toggleTodoStatus(todo)"
-            [checked]="todo.status"
-          />
-          <label>{{ todo.name }}</label>
-          <button class="destroy" (click)="removeTodo(todo)"></button>
-        </div>
-      </li>
-    </ul>
-  </section>
-  <footer class="footer" *ngIf="todos.length > 0">
-    <span class="todo-count"
-      ><strong>{{ todos.length }}</strong>
-      {{ todos.length == 1 ? "item" : "items" }} left</span
-    >
-  </footer>
+
+  <div *ngIf="todos$ | async as todos">
+    <section class="main">
+      <ul class="todo-list">
+        <li *ngFor="let todo of todos" [class.completed]="todo.status">
+          <div class="view">
+            <input
+              class="toggle"
+              type="checkbox"
+              (click)="toggleTodoStatus(todo)"
+              [checked]="todo.status"
+            />
+            <label
+              (click)="toggleTodoStatus(todo)"
+            >
+               {{ todo.name }}
+            </label>
+            <button class="destroy" (click)="removeTodo(todo)"></button>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <footer class="footer" *ngIf="todos.length > 0">
+      <span class="todo-count"
+        ><strong>{{ todos.length }}</strong>
+        {{ todos.length == 1 ? "item" : "items" }} left</span
+      >
+    </footer>
+  </div>
 </section>
